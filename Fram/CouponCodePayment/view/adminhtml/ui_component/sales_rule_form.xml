@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="rule_information">
+        <field name="payment_code_available" formElement="multiselect">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">sales_rule</item>
+                    <item name="sortOrder" xsi:type="number">1000</item>
+                </item>
+                <item name="options" xsi:type="object">Fram\CouponCodePayment\Model\Config\Source\PaymentList</item>
+            </argument>
+            <settings>
+                <label translate="true">Payment available for this rule</label>
+                <notice translate="true">
+                    All will be choosen if no payment is selected.
+                </notice>
+            </settings>
+
+        </field>
+
+    </fieldset>
+
+</form>

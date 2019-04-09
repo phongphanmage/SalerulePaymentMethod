@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+
+    <event name="adminhtml_controller_salesrule_prepare_save">
+        <observer name="f_convert_array_rules_to_string"
+                  instance="Fram\CouponCodePayment\Observer\ConvertArrayRulesToStringWhenAdminhtmlSave" />
+    </event>
+
+</config>
