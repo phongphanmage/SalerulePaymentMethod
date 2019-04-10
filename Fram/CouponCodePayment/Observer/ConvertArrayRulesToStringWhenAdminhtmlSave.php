@@ -12,7 +12,7 @@ class ConvertArrayRulesToStringWhenAdminhtmlSave implements ObserverInterface
         $request = $observer->getData('request');
 
         $data = $request->getPostValue();
-        if(isset($data['payment_code_available']))
+        if(isset($data['payment_code_available']) && !empty($data['payment_code_available']))
         {
             $request->setPostValue('payment_code_available', $this->_convert($data['payment_code_available']));
         }
