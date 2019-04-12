@@ -29,6 +29,11 @@ class GetAllAvailablePaymentForAppliedRules extends \Magento\Framework\App\Helpe
             ->addFieldToFilter('rule_id', ['in' => $applyRuleIds])
             ->getColumnValues('payment_code_available');
 
+        if(isset($paymentCodeAvailable) && isset($paymentCodeAvailable[0]) && $paymentCodeAvailable[0] == 0)
+        {
+            return [];
+        }
+
         if(!empty($paymentCodeAvailable))
         {
             foreach($paymentCodeAvailable as $paymentCodeString)
