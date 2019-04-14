@@ -30,12 +30,12 @@ class HidePaymentMethodForSalerule implements ObserverInterface
 
             $availablePaymentsCode = $this->getAllAvailablePaymentForAppliedRules->execute($applyRuleIds);
 
-            if( isset($availablePaymentsCode[0]) && ($availablePaymentsCode[0] == ""))
+            if( $availablePaymentsCode->getData('all_payments_available') == true)
             {
                 $result->setData('is_available', true);
             }else
             {
-                if(!in_array($methodInstance->getCode(), $availablePaymentsCode) && !empty($availablePaymentsCode))
+                if(!in_array($methodInstance->getCode(), $availablePaymentsCode->getData('codes')))
                 {
                     $result->setData('is_available', false);
                 }

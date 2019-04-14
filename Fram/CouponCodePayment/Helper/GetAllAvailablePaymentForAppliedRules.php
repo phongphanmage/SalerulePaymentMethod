@@ -2,9 +2,7 @@
 namespace Fram\CouponCodePayment\Helper;
 
 use Magento\Framework\App\Helper\Context;
-use Magento\Framework\Stdlib\CookieManagerInterface;
-use Magento\Framework\Stdlib\Cookie\CookieMetadataFactory;
-use \Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\DataObject;
 
 class GetAllAvailablePaymentForAppliedRules extends \Magento\Framework\App\Helper\AbstractHelper
 {
@@ -22,36 +20,42 @@ class GetAllAvailablePaymentForAppliedRules extends \Magento\Framework\App\Helpe
 
     public function execute($applyRuleIds)
     {
-        $response = [];
+        $response = [
+            'all_payments_available' => true,
+            'codes'                  => []
+        ];
 
         $paymentCodeAvailable = $this->rulesFactory->create()
             ->getCollection()
             ->addFieldToFilter('rule_id', ['in' => $applyRuleIds])
             ->getColumnValues('payment_code_available');
 
-
-        if(isset($paymentCodeAvailable[0]) && ($paymentCodeAvailable[0] !== null) && !empty($paymentCodeAvailable))
+        if(isset($paymentCodeAvailable[0]) && ($paymentCodeAvailable[0] !== "") && !empty($paymentCodeAvailable))
         {
+            $response ['all_payments_available'] = false;
+
             foreach($paymentCodeAvailable as $paymentCodeString)
             {
+
                 $convertedString = $this->convertStringToArray($paymentCodeString);
 
                 if(is_array($convertedString) && !empty($convertedString))
                 {
                     foreach($convertedString as $code)
                     {
-                        $response[] = $code;
+                        $response['codes'][] = $code;
                     }
                 }else{
-                    $response[] = $convertedString;
+                    $response['codes'][] = $convertedString;
                 }
             }
-        }else{
-            return [];
+            $response['codes'] = array_unique($response['codes']);
+
+            return new DataObject($response);
+        }else
+        {
+            return new DataObject($response);
         }
-
-
-        return array_unique($response);
     }
 
 
