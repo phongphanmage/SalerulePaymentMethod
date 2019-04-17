@@ -6,6 +6,7 @@
 
 # Description:
 - When user's cart or coupon code was matched/used, this module will only allow payment method which belong to the rules in admin setting.
+- Limit payment method with coupon code sale rules.
 
 # Installation:
 1. Copy module folder to your `magento_root_folder/app/code`.
